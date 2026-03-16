@@ -25,19 +25,27 @@ const (
 	PermClientBasic         = "client.basic"
 	PermClientTrading       = "client.trading"
 
-	// Sprint 2: New employee permissions for role hierarchy
+	// EmployeeBasic tier
 	PermEmployeeBankOperations   = "employee.bank_operations"
 	PermEmployeeClientManagement = "employee.client_management"
-	PermEmployeeStockTrading     = "employee.stock_trading"
-	PermEmployeeNoLimits         = "employee.no_limits"
-	PermEmployeeOTCTrading       = "employee.otc_trading"
-	PermEmployeeFundManagement   = "employee.fund_management"
-	PermEmployeeManageAll        = "employee.manage_all"
 
-	// Sprint 2: New client permissions for role hierarchy
+	// EmployeeAgent tier (adds stock trading)
+	PermEmployeeStockTrading = "employee.stock_trading"
+
+	// EmployeeSupervisor tier (adds no-limits, OTC, fund management)
+	PermEmployeeNoLimits       = "employee.trading_no_limits"
+	PermEmployeeOTCTrading     = "employee.otc_trading"
+	PermEmployeeFundManagement = "employee.fund_management"
+
+	// EmployeeAdmin tier (adds manage all employees)
+	PermEmployeeManageAll = "employee.manage_all"
+
+	// ClientBasic tier
 	PermClientBankOperations = "client.bank_operations"
-	PermClientStockTrading   = "client.stock_trading"
-	PermClientFundInvesting  = "client.fund_investing"
+
+	// ClientTrading tier (adds stock/OTC trading and fund investing)
+	PermClientStockTrading  = "client.stock_trading"
+	PermClientFundInvesting = "client.fund_investing"
 )
 
 // DefaultPermissions are seeded on first run
@@ -55,7 +63,7 @@ var DefaultPermissions = []Permission{
 	{Name: PermEmployeeBankOperations, Description: "Osnovno poslovanje banke (basic banking operations)", SubjectType: PermissionSubjectEmployee},
 	{Name: PermEmployeeClientManagement, Description: "Upravljanje klijentima (client management)", SubjectType: PermissionSubjectEmployee},
 	{Name: PermEmployeeStockTrading, Description: "Trgovina hartijama sa berze uz limite (stock trading with limits)", SubjectType: PermissionSubjectEmployee},
-	{Name: PermEmployeeNoLimits, Description: "Bez limita (no trading limits)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeNoLimits, Description: "Bez limita na trgovinu (no trading limits)", SubjectType: PermissionSubjectEmployee},
 	{Name: PermEmployeeOTCTrading, Description: "OTC trgovina (OTC trading)", SubjectType: PermissionSubjectEmployee},
 	{Name: PermEmployeeFundManagement, Description: "Upravljanje fondovima i agentima (fund and agent management)", SubjectType: PermissionSubjectEmployee},
 	{Name: PermEmployeeManageAll, Description: "Upravlja svim zaposlenima (manage all employees)", SubjectType: PermissionSubjectEmployee},
