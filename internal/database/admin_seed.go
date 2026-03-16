@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 	"time"
 
 	"github.com/RAF-SI-2025/EXBanka-3-Infrastructure/internal/models"
@@ -32,7 +32,7 @@ func SeedDefaultAdmin(db *gorm.DB) error {
 			if err := db.Model(&existing).Association("Permissions").Replace(allPerms); err != nil {
 				return fmt.Errorf("failed to sync admin permissions: %w", err)
 			}
-			log.Println("Admin already exists, skipping seed")
+			slog.Info("Admin already exists, skipping seed")
 			return nil
 		}
 
@@ -58,7 +58,7 @@ func SeedDefaultAdmin(db *gorm.DB) error {
 			return fmt.Errorf("failed to sync admin permissions: %w", err)
 		}
 
-		log.Println("Default admin user repaired successfully")
+		slog.Info("Default admin user repaired successfully")
 		return nil
 	} else if result.Error != nil && result.Error != gorm.ErrRecordNotFound {
 		return fmt.Errorf("failed to check existing admin: %w", result.Error)
@@ -100,6 +100,6 @@ func SeedDefaultAdmin(db *gorm.DB) error {
 		return fmt.Errorf("failed to create admin: %w", err)
 	}
 
-	log.Println("Default admin user created successfully")
+	slog.Info("Default admin user created successfully")
 	return nil
 }

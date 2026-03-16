@@ -24,6 +24,28 @@ const (
 	PermEmployeePermissions = "employee.permissions"
 	PermClientBasic         = "client.basic"
 	PermClientTrading       = "client.trading"
+
+	// EmployeeBasic tier
+	PermEmployeeBankOperations   = "employee.bank_operations"
+	PermEmployeeClientManagement = "employee.client_management"
+
+	// EmployeeAgent tier (adds stock trading)
+	PermEmployeeStockTrading = "employee.stock_trading"
+
+	// EmployeeSupervisor tier (adds no-limits, OTC, fund management)
+	PermEmployeeNoLimits       = "employee.trading_no_limits"
+	PermEmployeeOTCTrading     = "employee.otc_trading"
+	PermEmployeeFundManagement = "employee.fund_management"
+
+	// EmployeeAdmin tier (adds manage all employees)
+	PermEmployeeManageAll = "employee.manage_all"
+
+	// ClientBasic tier
+	PermClientBankOperations = "client.bank_operations"
+
+	// ClientTrading tier (adds stock/OTC trading and fund investing)
+	PermClientStockTrading  = "client.stock_trading"
+	PermClientFundInvesting = "client.fund_investing"
 )
 
 // DefaultPermissions are seeded on first run
@@ -36,4 +58,18 @@ var DefaultPermissions = []Permission{
 	{Name: PermEmployeePermissions, Description: "Can manage employee permissions", SubjectType: PermissionSubjectEmployee},
 	{Name: PermClientBasic, Description: "Basic client role", SubjectType: PermissionSubjectClient},
 	{Name: PermClientTrading, Description: "Trading-enabled client role", SubjectType: PermissionSubjectClient},
+
+	// Sprint 2: New employee permissions for role hierarchy
+	{Name: PermEmployeeBankOperations, Description: "Osnovno poslovanje banke (basic banking operations)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeClientManagement, Description: "Upravljanje klijentima (client management)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeStockTrading, Description: "Trgovina hartijama sa berze uz limite (stock trading with limits)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeNoLimits, Description: "Bez limita na trgovinu (no trading limits)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeOTCTrading, Description: "OTC trgovina (OTC trading)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeFundManagement, Description: "Upravljanje fondovima i agentima (fund and agent management)", SubjectType: PermissionSubjectEmployee},
+	{Name: PermEmployeeManageAll, Description: "Upravlja svim zaposlenima (manage all employees)", SubjectType: PermissionSubjectEmployee},
+
+	// Sprint 2: New client permissions for role hierarchy
+	{Name: PermClientBankOperations, Description: "Osnovno poslovanje banke - racuni, transferi, placanja (basic banking: accounts, transfers, payments)", SubjectType: PermissionSubjectClient},
+	{Name: PermClientStockTrading, Description: "Trgovina hartijama sa berze i OTC (stock exchange and OTC trading)", SubjectType: PermissionSubjectClient},
+	{Name: PermClientFundInvesting, Description: "Investiranje u fondove (fund investing)", SubjectType: PermissionSubjectClient},
 }
