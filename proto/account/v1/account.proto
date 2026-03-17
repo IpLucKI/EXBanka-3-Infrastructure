@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package account.v1;
+
+option go_package = "github.com/RAF-SI-2025/EXBanka-3-Infrastructure/gen/proto/account/v1;accountv1";
+
+import "google/api/annotations.proto";
+
+service AccountService {
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/accounts"
+      body: "*"
+    };
+  }
+
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/accounts/{id}"
+    };
+  }
+
+  rpc ListClientAccounts(ListClientAccountsRequest) returns (ListAccountsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/accounts/client/{client_id}"
+    };
+  }
+
+  rpc ListAllAccounts(ListAllAccountsRequest) returns (ListAccountsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/accounts"
+    };
+  }
+
+  rpc UpdateAccountName(UpdateAccountNameRequest) returns (UpdateAccountNameResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/accounts/{id}/name"
+      body: "*"
+    };
+  }
+
+  rpc UpdateAccountLimits(UpdateAccountLimitsRequest) returns (UpdateAccountLimitsResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/accounts/{id}/limits"
+      body: "*"
+    };
+  }
+}
+
+message AccountProto {
+  uint64 id                  = 1;
+  string broj_racuna         = 2;
+  uint64 client_id           = 3;
+  uint64 firma_id            = 4;
+  uint64 currency_id         = 5;
+  string currency_kod        = 6;
+  string tip                 = 7;
+  string vrsta               = 8;
+  double stanje              = 9;
+  double raspolozivo_stanje  = 10;
+  double dnevni_limit        = 11;
+  double mesecni_limit       = 12;
+  string naziv               = 13;
+  string status              = 14;
+}
+
+message CreateAccountRequest {
+  uint64 client_id   = 1;
+  uint64 firma_id    = 2;
+  uint64 currency_id = 3;
+  string tip         = 4;
+  string vrsta       = 5;
+  string naziv       = 6;
+}
+
+message CreateAccountResponse {
+  AccountProto account = 1;
+  string message       = 2;
+}
+
+message GetAccountRequest {
+  uint64 id = 1;
+}
+
+message GetAccountResponse {
+  AccountProto account = 1;
+}
+
+message ListClientAccountsRequest {
+  uint64 client_id = 1;
+}
+
+message ListAllAccountsRequest {
+  string client_name  = 1;
+  string tip          = 2;
+  string vrsta        = 3;
+  string status       = 4;
+  uint64 currency_id  = 5;
+  int32  page         = 6;
+  int32  page_size    = 7;
+}
+
+message ListAccountsResponse {
+  repeated AccountProto accounts = 1;
+  int64 total                    = 2;
+  int32 page                     = 3;
+  int32 page_size                = 4;
+}
+
+message UpdateAccountNameRequest {
+  uint64 id    = 1;
+  string naziv = 2;
+}
+
+message UpdateAccountNameResponse {
+  string message = 1;
+}
+
+message UpdateAccountLimitsRequest {
+  uint64 id            = 1;
+  double dnevni_limit  = 2;
+  double mesecni_limit = 3;
+}
+
+message UpdateAccountLimitsResponse {
+  string message = 1;
+}
